@@ -1,18 +1,18 @@
-import database from '../database';
+import mock from '../helpers/mock';
+import Message from '../models/Message';
 
 export default class HomeController {
-  static createTable = async () => {
-    const query = 'CREATE TABLE test (name varchar);';
-
-    let message = 'Table was successfully created!';
-
+  static getMessages = async () => {
+    let messages = {};
     try {
-      await database.query(query);
+      await mock();
+      messages.data = await Message.findAll();
+      messages.success = true;
     } catch (exception) {
       console.error(exception.message);
-      message = exception.message;
+      messages.success = false;
+    } finally {
+      return JSON.stringify(messages);
     }
-
-    return message;
   }
 }

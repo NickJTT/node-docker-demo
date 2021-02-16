@@ -17,4 +17,4 @@ services:
       - "5000:5000"
     depends_on:
       - db
-    
+    command: bash -c 'while !</dev/tcp/db/5432; do sleep 1; done; sequelize db:migrate; npm start'

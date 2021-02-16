@@ -1,20 +1,10 @@
-import { Client } from 'pg';
+import { Sequelize } from 'sequelize';
 
-const USER = 'postgres';
-const HOST = 'db';
 const DATABASE = 'postgres';
+const USERNAME = 'postgres';
 const PASSWORD = 'postgres';
-const PORT = 5432;
+const OPTIONS = { host: 'db', dialect: 'postgres' };
 
-const CONNECTION = { user: USER, host: HOST, database: DATABASE, password: PASSWORD, port: PORT };
+const sequelize = new Sequelize(DATABASE, USERNAME, PASSWORD, OPTIONS);
 
-const client = new Client(CONNECTION);
-
-const createConnection = async () => {
-  await new Promise(res => setTimeout(res, 10000));
-  await client.connect();
-}
-
-createConnection();
-
-export default client;
+export default sequelize;
